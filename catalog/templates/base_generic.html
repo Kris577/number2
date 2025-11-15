@@ -1,10 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="utf-8">
+  <title>{% block title %}Design.pro{% endblock %}</title>
+  {% load static %}
+  <!-- Пример подключения стилей, вы можете изменить путь -->
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
-<body>
 
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-2">
+        <!-- Боковая панель -->
+        {% block sidebar %}
+          <ul class="sidebar-nav">
+            <li><a href="{% url 'index' %}">Главная</a></li>
+            <!-- Добавьте ссылки для регистрации, входа, личного кабинета и т.д. -->
+            {% if user.is_authenticated %}
+              <li>Привет, {{ user.get_username }}!</li>
+              <li><a href="{% url 'logout' %}">Выйти</a></li>
+              <!-- Ссылка на личный кабинет пользователя -->
+              <li><a href="{% url 'my_requests' %}">>Мои заявки</a> <!-- Замените на реальный URL --> </li>
+            {% else %}
+              <li><a href="{% url 'login' %}">Войти</a> <!-- Замените на реальный URL --> </li>
+              <li><a href="{% url 'register' %}">Зарегистрироваться</a> <!-- Замените на реальный URL --> </li>
+            {% endif %}
+
+            {% if user.is_staff %}
+              <li><a href="{% url 'admin:index' %}">Панель администратора</a></li>
+            {% endif %}
+          </ul>
+        {% endblock %}
+      </div>
+      <div class="col-sm-10">
+        <!-- Основной контент -->
+        {% block content %}{% endblock %}
+      </div>
+    </div>
+  </div>
 </body>
 </html>

@@ -89,3 +89,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 AUTH_USER_MODEL = 'catalog.CustomerUser'
 
+AUTH_USER_MODEL = 'catalog.CustomerUser'
+
+# Перенаправление после входа (например, на личный кабинет)
+LOGIN_REDIRECT_URL = '/catalog/my_requests/'
+
+# Перенаправление после выхода (например, на главную)
+LOGOUT_REDIRECT_URL = '/catalog/'
+

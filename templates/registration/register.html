@@ -1,0 +1,28 @@
+{% extends "base_generic.html" %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block content %}
+  <h2>Регистрация</h2>
+  {% if form.errors %}
+      <p>Пожалуйста, исправьте следующие ошибки:</p>
+      <ul>
+          {% for field in form %}
+              {% if field.errors %}
+                  <li>{{ field.label }}: {{ field.errors|join:", " }}</li>
+              {% endif %}
+          {% endfor %}
+          {% if form.non_field_errors %}
+              <li>{{ form.non_field_errors|join:", " }}</li>
+          {% endif %}
+      </ul>
+  {% endif %}
+
+  <form method="post">
+      {% csrf_token %}
+      <table>
+          {{ form.as_p }}
+      </table>
+      <input type="submit" value="Зарегистрироваться">
+  </form>
+{% endblock %}

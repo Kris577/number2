@@ -1,0 +1,29 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Добро пожаловать на Design.pro</h1>
+  <p>Здесь вы можете загрузить план помещения и получить варианты его оформления.</p>
+
+  <!-- Счетчик заявок в работе -->
+  <h2>Заявок в работе: {{ num_requests_in_progress }}</h2>
+
+  <!-- Последние выполненные заявки -->
+  <h2>Последние выполненные работы:</h2>
+  {% if completed_requests %}
+    <ul>
+      {% for request in completed_requests %}
+        <li>
+          <p><strong>{{ request.title }}</strong> ({{ request.date }})</p>
+          <p>Категория: {{ request.category.name }}</p>
+          <!-- Отображение изображения, если оно есть -->
+          {% if request.image %}
+            <img src="{{ request.image.url }}" alt="Изображение заявки {{ request.title }}" width="200">
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Пока нет выполненных заявок.</p>
+  {% endif %}
+
+{% endblock %}

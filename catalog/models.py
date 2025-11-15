@@ -25,3 +25,6 @@ class RequestDesing(models.Model):
     image = models.ImageField(default='default.jpg', upload_to="images/", verbose_name="image")
     status = models.CharField(max_length=1, choices=STATUS_CHOICES, default='n', verbose_name="status")
     customer = models.ForeignKey(CustomerUser, on_delete=models.CASCADE, null=True, verbose_name="customer")
+
+    def __str__(self):
+        return self.title
